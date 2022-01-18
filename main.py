@@ -1,4 +1,4 @@
-import lightbulb, asyncio, random, time
+import lightbulb
 from secrets import token1, ID1
 
 bot = lightbulb.BotApp(

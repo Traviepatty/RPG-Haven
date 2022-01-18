@@ -29,7 +29,7 @@ end
 # Unset irrelevant variables.
 deactivate nondestructive
 
-set -gx VIRTUAL_ENV "/home/toritoab01/Programming/Indev/RPG-Haven/rpgHaven"
+set -gx VIRTUAL_ENV "/home/toritoab01/GitHub/RPG-Haven/rpgHaven"
 
 set -gx _OLD_VIRTUAL_PATH $PATH
 set -gx PATH "$VIRTUAL_ENV/bin" $PATH

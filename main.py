@@ -25,7 +25,7 @@ async def ping(ctx):
 @lightbulb.implements(lightbulb.PrefixCommand)
 async def help(ctx):
     await ctx.respond(HELP_MESSAGE)
-    
+
 @bot.command
 @lightbulb.option('modifier','add or subtracts from the original roll')
 @lightbulb.option('op','add or sub')
@@ -45,6 +45,7 @@ async def roll(ctx):
         mod = int(mod)
         mod = 0 - mod
     else:
+        op = '+'
         mod = int(mod)
 
     totalDice = int(sides[0])
@@ -54,5 +55,23 @@ async def roll(ctx):
     total = outcome + mod
     
     await ctx.respond(f"{total}") 
+
+@bot.command
+@lightbulb.option('sides', 'sides on a die')
+@lightbulb.command('roll','rolls a single die')
+@lightbulb.implements(lightbulb.PrefixCommand)
+async def roll1(ctx):
+    sides = ctx.options.sides
+    sides = sides.split('d')
+    if sides[0] == '':
+        sides[0] = '1'
+    tSides = sides[1]
+    dice = sides[0]
+    tSides = int(tSides)
+    dice = int(dice)
+
+    outcome = [random.randint(1,tSides) for i in range(dice)]
+    
+    await ctx.respond(f"{outcome}")
 
 bot.run()

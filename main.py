@@ -1,4 +1,4 @@
-import lightbulb
+import lightbulb, asyncio, random, time
 from secrets import token1, ID1
 
 bot = lightbulb.BotApp(
@@ -19,6 +19,12 @@ Commands Available:
 @lightbulb.implements(lightbulb.PrefixCommand)
 async def ping(ctx):
     await ctx.respond('Pong!')
+    
+@bot.command
+@lightbulb.command('help', 'Gets list of Commands')
+@lightbulb.implements(lightbulb.PrefixCommand)
+async def Help(ctx):
+    await ctx.respond(HELP_MESSAGE)
     
 
 bot.run()

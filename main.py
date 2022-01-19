@@ -33,18 +33,18 @@ async def help(ctx):
 @lightbulb.command('r', 'rolls a set of dice')
 @lightbulb.implements(lightbulb.PrefixCommand)
 async def roll(ctx):
-    sides, op, mod = ctx.options.sides, ctx.options.op, ctx.options.mod
+    sides, op, mod = ctx.options.sides, ctx.options.op, ctx.options.modifier
     sides = sides.split("d")
     tDice = sides[0]
     tSides = sides[1]
 
-    if mod == "": mod = "0"
+    if mod == "": mod = 0
     if op == "-":
-        mod = int(mod)
         mod = 0 - mod
-    else:
-        mod = int(mod)
+    elif op == "":
         op = "+"
+    else:
+        pass
     if tDice == "": tDice = "1"
     
     tDice,tSides = int(tDice),int(tSides)

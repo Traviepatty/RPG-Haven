@@ -27,51 +27,49 @@ async def help(ctx):
     await ctx.respond(HELP_MESSAGE)
 
 @bot.command
-@lightbulb.option('modifier','add or subtracts from the original roll')
-@lightbulb.option('op','add or sub')
+@lightbulb.option('modifier','add or subtracts from the original roll', required=False)
+@lightbulb.option('op','add or sub', required=False)
 @lightbulb.option('sides', 'sides on the die')
 @lightbulb.command('r', 'rolls a set of dice')
 @lightbulb.implements(lightbulb.PrefixCommand)
 async def roll(ctx):
-    sides = ctx.options.sides
-    op = ctx.options.op
-    mod = ctx.options.modifier
-    sides = sides.split('d')
-    if mod == '':
-        mod = '0'
-    if sides[0] == '':
-        sides[0] = '1'
-    if op == '-':
+    sides, op, mod = ctx.options.sides, ctx.options.op, ctx.options.mod
+    sides = sides.split("d")
+    tDice = sides[0]
+    tSides = sides[1]
+
+    if mod == "": mod = "0"
+    if op == "-":
         mod = int(mod)
         mod = 0 - mod
     else:
-        op = '+'
         mod = int(mod)
-
-    totalDice = int(sides[0])
-    sides = int(sides[1])
-    outcomes = [random.randint(1,sides) for i in range(totalDice)]
-    outcome = int(math.fsum(outcomes))
-    total = outcome + mod
+        op = "+"
+    if tDice == "": tDice = "1"
+    
+    tDice,tSides = int(tDice),int(tSides)
+    tRoll = [random.randint(1,tSides) for i in range(tDice)]
+    tRoll1 = int(math.fsum(tRoll))
+    total = tRoll1 + mod
     
     await ctx.respond(f"{total}") 
 
-@bot.command
-@lightbulb.option('sides', 'sides on a die')
-@lightbulb.command('roll','rolls a single die')
-@lightbulb.implements(lightbulb.PrefixCommand)
-async def roll1(ctx):
-    sides = ctx.options.sides
-    sides = sides.split('d')
-    if sides[0] == '':
-        sides[0] = '1'
-    tSides = sides[1]
-    dice = sides[0]
-    tSides = int(tSides)
-    dice = int(dice)
-
-    outcome = [random.randint(1,tSides) for i in range(dice)]
-    
-    await ctx.respond(f"{outcome}")
+#@bot.command
+#@lightbulb.option('sides', 'sides on a die')
+#@lightbulb.command('roll','rolls a single die')
+#@lightbulb.implements(lightbulb.PrefixCommand)
+#async def roll1(ctx):
+#    sides = ctx.options.sides
+#    sides = sides.split('d')
+#    if sides[0] == '':
+#        sides[0] = '1'
+#    tSides = sides[1]
+#    dice = sides[0]
+#    tSides = int(tSides)
+#    dice = int(dice)
+#
+#    outcome = [random.randint(1,tSides) for i in range(dice)]
+#    
+#    await ctx.respond(f"{outcome}")
 
 bot.run()

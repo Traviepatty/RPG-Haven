@@ -9,7 +9,7 @@ plugin = lightbulb.Plugin("Fun")
 @lightbulb.option('modifier','add or subtracts from the original roll', required=False, default=0)
 @lightbulb.option('op','add or sub', required=False, default="+")
 @lightbulb.option('sides', 'sides on the die')
-@lightbulb.command('r', 'rolls a set of dice')
+@lightbulb.command('r', 'rolls a set of dice', aliases=("roll", "dice"))
 @lightbulb.implements(lightbulb.PrefixCommand)
 async def roll(ctx):
     sides, op, mod = ctx.options.sides, ctx.options.op, ctx.options.modifier

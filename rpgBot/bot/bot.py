@@ -12,7 +12,7 @@ from rpgBot import __version__
 
 class Bot(lightbulb.BotApp):
     def __init__(self) -> None:
-        self.extensions = [p.stem for p in Path(".").glob("./rpgBot/bot/extensions/*.py")]
+        self._extensions = [p.stem for p in Path(".").glob("./rpgBot/bot/extensions/*.py")]
         self.scheduler = AsyncIOScheduler()
         self.scheduler.configure(timezone = utc)
         
@@ -41,7 +41,7 @@ class Bot(lightbulb.BotApp):
         )
         
     async def on_starting(self, event: hikari.StartingEvent) -> None:
-        for ext in self.extensions:
+        for ext in self._extensions:
             self.load_extensions(f"rpgBot.bot.extensions.{ext}")
             logging.info(f"{ext} extension loaded")
     

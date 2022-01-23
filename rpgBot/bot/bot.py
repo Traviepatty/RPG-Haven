@@ -35,8 +35,8 @@ class Bot(lightbulb.BotApp):
         
         super().run(
             activity=hikari.Activity(
-                name=f"-help | Version{__version__}",
-                type=hikari.ActivityType.WATCHING
+                name=f"Rocketeer | -help |Version{__version__}",
+                type=hikari.ActivityType.LISTENING
             )
         )
         

@@ -29,7 +29,7 @@ async def cmd_roll(ctx):
     tRoll1 = int(math.fsum(tRoll))
     total = tRoll1 + mod
     
-    await ctx.respond(" + ".join(str(r) for r in tRoll) + f" + {mod} = {total}")
+    await ctx.respond(" + ".join(str(r) for r in tRoll) + f" + {mod} = {total}", reply=True, mentions_reply=True)
 
 @plugin.command
 @lightbulb.command('randchar', 'rolls stats for a new character')
@@ -42,7 +42,16 @@ async def cmd_randchar(ctx):
         stat.pop(x)
         charstat = sum(stat)
         stats.append(charstat)
-    await ctx.respond(f"These are your new stats {stats}")
+    await ctx.respond(f"These are your new stats {stats}", reply=True, mentions_reply=True)
+
+@plugin.command
+@lightbulb.command('hello','Greets user', aliases=('hi','hey'))
+@lightbulb.implements(lightbulb.PrefixCommand)
+async def cmd_greeting(ctx):
+    greeting = random.choice(('Hello', 'Hi', 'Hey'))
+    await ctx.respond(f'{greeting} {ctx.member.mention}!',reply=True, user_mentions=True)
+
+
 
 
 def load(bot: lightbulb.BotApp) -> None:

@@ -4,12 +4,13 @@ from rpgBot.bot import Bot
 
 plugin = lightbulb.Plugin("Admin")
 
-@lightbulb.check(lightbulb.owner_only)
-@lightbulb.command("shutdown", "Gracefully shuts down RPG Bot", aliases = ("sd"))
-async def shutdown_cmd(self, ctx: lightbulb.Context) -> None:
-    await ctx.message.delete()
+@plugin.command
+@lightbulb.add_checks(lightbulb.owner_only )
+@lightbulb.command(name = "shutdown", description = "Gracefully shuts down RPG Bot", aliases = ("sd"))
+@lightbulb.implements(lightbulb.PrefixCommand)
+async def shutdown_cmd(ctx) -> None:
     await ctx.respond("Shutting down...")
-    await self.bot.close()
+    await ctx.bot.close()
         
 def load(bot: lightbulb.BotApp) -> None:
         bot.add_plugin(plugin)

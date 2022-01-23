@@ -1,4 +1,3 @@
-from email.policy import default
 import lightbulb, random, math
 
 from rpgBot.bot import Bot

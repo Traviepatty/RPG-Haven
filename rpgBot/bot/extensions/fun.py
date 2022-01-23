@@ -11,7 +11,7 @@ plugin = lightbulb.Plugin("Fun")
 @lightbulb.option('sides', 'sides on the die')
 @lightbulb.command('r', 'rolls a set of dice', aliases=("roll", "dice"))
 @lightbulb.implements(lightbulb.PrefixCommand)
-async def roll(ctx):
+async def cmd_roll(ctx):
     sides, op, mod = ctx.options.sides, ctx.options.op, ctx.options.modifier
     sides = sides.split("d")
     tDice = sides[0]
@@ -32,7 +32,18 @@ async def roll(ctx):
     
     await ctx.respond(" + ".join(str(r) for r in tRoll) + f" + {mod} = {total}")
 
-
+@plugin.command
+@lightbulb.command('randchar', 'rolls stats for a new character')
+@lightbulb.implements(lightbulb.PrefixCommand)
+async def cmd_randchar(ctx):
+    stats = []
+    for i in range(6):
+        stat = [random.randint(1,5) for i in range(4)]
+        x = stat.index(min(stat))
+        stat.pop(x)
+        charstat = sum(stat)
+        stats.append(charstat)
+    await ctx.respond(f"These are your new stats {stats}")
 
 
 def load(bot: lightbulb.BotApp) -> None:
